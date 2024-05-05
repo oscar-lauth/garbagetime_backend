@@ -48,13 +48,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-@app.lifespan("startup")
+@app.on_event("startup")
 async def startup_db_client():
     app.mongodb_client = AsyncIOMotorClient(os.getenv("DB_URI"))
     # app.mongodb = app.mongodb_client[settings.db_name]
 
 
-@app.lifespan("shutdown")
+@app.on_event("shutdown")
 async def shutdown_db_client():
     app.mongodb_client.close()
 
