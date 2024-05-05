@@ -18,7 +18,7 @@ def on_message(client, userdata, message):
     encoded_payload = message_json["uplink_message"]["frm_payload"]
     raw_payload = base64.b64decode(encoded_payload)
     float_value = struct.unpack('!f',raw_payload[1:])[0]
-    latest_mqtt_value.append({"ID":raw_payload[0],"Distance":float_value})
+    latest_mqtt_value = {"ID":raw_payload[0],"Distance":float_value}
 
 def create_app():
     app = FastAPI()
